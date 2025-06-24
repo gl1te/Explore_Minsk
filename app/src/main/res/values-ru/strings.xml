@@ -1,0 +1,69 @@
+<resources>
+     <string name="app_name">Исследуй Минск</string>
+    <string name="minsk_label">МИНСК</string>
+    <string name="plan_your_label">Планируй свой</string>
+    <string name="luxurious_vacation_label">Роскошный\nОтпуск</string>
+    <string name="explore_label">Исследуй</string>
+    <string name="email_label">Электронная почта</string>
+    <string name="password_label">Пароль</string>
+    <string name="email_template_label">example@gmail.com</string>
+    <string name="email_template_label2">example@example.com</string>
+    <string name="password_template_label">6 или больше символов</string>
+    <string name="forgot_password_label">Забыли пароль?</string>
+    <string name="login_label">Войти</string>
+    <string name="sign_up_label">Зарегистрироваться</string>
+    <string name="dont_have_an_account_label">Нет аккаунта?</string>
+    <string name="account_already_exits_label">Аккаунт уже существует?</string>
+    <string name="password_length_error_label">Пароль должен содержать 6 или более символов</string>
+    <string name="password_contains_error_label">Пароль должен содержать одну букву или цифру</string>
+    <string name="email_incorrect_error_label">Неверная электронная почта</string>
+    <string name="settings_label">Настройки</string>
+    <string name="profile_label">Профиль</string>
+    <string name="language_label">Язык</string>
+    <string name="theme_label">Тема</string>
+    <string name="dark_label">Темная</string>
+    <string name="light_label">Светлая</string>
+    <string name="system_label">Система</string>
+    <string name="about_app_label">О приложении</string>
+    <string name="version_label">Версия</string>
+    <string name="number_version_label">1.0</string>
+    <string name="russian_language_label">Русский</string>
+    <string name="english_language_label">Английский</string>
+    <string name="rewards_label">НАГРАДЫ</string>
+    <string name="edit_profile_label">Редактировать профиль</string>
+    <string name="user_template_label">Пользователь</string>
+    <string name="save_changes_label">Сохранить изменения</string>
+
+    <string name="register_successfully_result">Регистрация прошла успешно</string>
+    <string name="login_successfully_result">Вход выполнен успешно</string>
+    <string name="invalid_credentials">Неверные учетные данные</string>
+    <string name="user_conflict">Пользователь уже существует</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="minsk_lower_label">Минск</string>
+    <string name="find_things_to_do_label">Найди, что делать</string>
+    <string name="popular_label">Популярное</string>
+    <string name="see_all_label">Смотреть все</string>
+    <string name="recommended_label">Рекомендуемое</string>
+    <string name="read_more_label">Читать дальше</string>
+
+    <string name="locations_label">Места</string>
+    <string name="login_length_error_label">Логин не может быть пустым</string>
+    <string name="ok_dialog_label">Ок</string>
+
+    <string name="confirm_email_dialog_label">Подтверждение почты</string>
+    <string name="confirm_email_dialog_text_label">Мы отправили вам сообщение с подтверждением на вашу почту.</string>
+
+    <string name="confirm_timeout_error_label">Подождите перед тем как изменить почту снова.</string>
+    <string name="profile_update_error_label">Не удалось обновить профиль</string>
+    <string name="profile_get_info_error_label">Не удалось получить данные пользователя</string>
+
+    <string name="favorites_label">Избранное</string>
+    <string name="favorites_empty_screen_large_label">К сожалению, у вас пока нет избранного</string>
+    <string name="favorites_empty_screen_small_label">Нажмите на кнопку с сердцем, чтобы добавить в избранное</string>
+
+    <string name="delete_label">Удалить</string>
+    <string name="search_results_label">Результаты поиска</string>
+    <string name="refine_search_results_label">Уточните результаты поиска</string>
+    <string name="search_result_empty_screen_no_result_label">НЕТ РЕЗУЛЬТАТОВ</string>
+    <string name="search_result_empty_screen_label">Попробуйте другой запрос или категорию</string>
+</resources>

@@ -1,0 +1,188 @@
+package com.dev.exploreminsk.presentation.search_results
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.dev.exploreminsk.R
+import com.dev.exploreminsk.domain.model.Category
+import com.dev.exploreminsk.domain.model.Place
+import com.dev.exploreminsk.presentation.common.PulseAnimation
+import com.dev.exploreminsk.presentation.search_results.components.CategoryFlowRow
+import com.dev.exploreminsk.presentation.search_results.components.SearchList
+import com.dev.exploreminsk.presentation.search_results.components.SearchResultsEmptyScreen
+import com.dev.exploreminsk.presentation.ui.theme.montserratFontFamily
+
+
+@Composable
+fun SearchResultsScreen(
+    onEvent: (SearchResultsScreenEvent) -> Unit,
+    state: State<SearchResultsScreenState>,
+    navigateToLocation: () -> Unit,
+    navigateToSeeAll:(Category)->Unit,
+    onPlaceClick: (Place) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 20.dp)
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(horizontal = 15.dp)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.arrow_back),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(24.dp)
+                    .clickable { navigateToLocation() }
+            )
+            Text(
+                text = stringResource(R.string.search_results_label),
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = montserratFontFamily,
+                    fontSize = 18.sp
+                ),
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.width(25.dp))
+        }
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        TextField(
+            value = state.value.searchQuery,
+            onValueChange = { onEvent(SearchResultsScreenEvent.OnSearchQueryChange(it)) },
+            placeholder = {
+                Text(
+                    text = stringResource(R.string.find_things_to_do_label),
+                    color = Color.Gray,
+                    fontFamily = montserratFontFamily,
+                    fontSize = 13.sp
+                )
+            },
+            leadingIcon = {
+                Icon(
+                    modifier = Modifier
+                        .padding(start = 5.dp)
+                        .size(20.dp),
+                    painter = painterResource(R.drawable.search),
+                    contentDescription = "search",
+                    tint = Color.Gray
+                )
+            },
+            shape = CircleShape,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedContainerColor = colorResource(R.color.custom_light_gray),
+                unfocusedContainerColor = colorResource(R.color.custom_light_gray)
+            ),
+            maxLines = 1,
+            singleLine = true
+        )
+
+        Spacer(modifier = Modifier.height(34.dp))
+
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    when {
+                        state.value.isLoading -> {
+                            PulseAnimation(modifier = Modifier.size(120.dp))
+                        }
+
+                        state.value.errorMessage != null -> {
+                            Text(text = state.value.errorMessage ?: "Unknown error")
+                        }
+
+                        state.value.searchedPlaces.isEmpty() -> {
+                            SearchResultsEmptyScreen()
+                        }
+
+                        else -> {
+                            SearchList(
+                                places = state.value.searchedPlaces,
+                                onPlaceClick = onPlaceClick,
+                                onSeeAllClick = {
+                                    navigateToSeeAll(state.value.selectedCategory!!)
+                                },
+                                showSeeAll = true
+                            )
+                        }
+                    }
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp, top = 8.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.refine_search_results_label),
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = montserratFontFamily,
+                            fontSize = 22.sp
+                        ),
+                        modifier = Modifier
+                            .padding(start = 16.dp, bottom = 12.dp)
+                    )
+                    CategoryFlowRow(
+                        categories = state.value.categories,
+                        selectedCategory = state.value.selectedCategory
+                            ?: state.value.categories.firstOrNull(),
+                        onCategorySelected = {
+                            onEvent(SearchResultsScreenEvent.OnCategorySelected(it))
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
